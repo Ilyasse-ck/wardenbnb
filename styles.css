@@ -140,7 +140,7 @@ a{ color: inherit; text-decoration: none; }
 
 /* Hero */
 .hero{
-  padding: 64px 0 110px;
+  padding: 0px 0 0px;
 }
 
 .hero__inner{
