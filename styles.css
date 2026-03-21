@@ -381,6 +381,18 @@ html{ scroll-behavior: smooth; }
 .form input:focus, .form textarea:focus{
   border-color: rgba(185,167,150,.45);
 }
+.topbar__actions{
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 10px;
+}
+
+@media (max-width: 900px){
+  .topbar__actions{
+    justify-self: center;
+  }
+}
 
 /* Responsive */
 @media (max-width: 900px){
