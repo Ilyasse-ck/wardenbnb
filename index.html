@@ -215,21 +215,31 @@
       <p class="page__lead">Laissez vos infos, on vous répond rapidement.</p>
     </header>
 
-    <form class="form">
-      <div class="form__row">
-        <label>Nom</label>
-        <input type="text" placeholder="Votre nom" />
-      </div>
-      <div class="form__row">
-        <label>Téléphone</label>
-        <input type="tel" placeholder="+212 ..." />
-      </div>
-      <div class="form__row">
-        <label>Message</label>
-        <textarea rows="5" placeholder="Décrivez votre logement et vos objectifs..."></textarea>
-      </div>
-      <button class="btn btn--primary btn--lg" type="button">Envoyer</button>
-    </form>
+<form class="form" action="https://formspree.io/f/mzdjqewj" method="POST">
+  <div class="form__row">
+    <label for="name">Nom</label>
+    <input id="name" type="text" name="name" placeholder="Votre nom" required />
+  </div>
+
+  <div class="form__row">
+    <label for="phone">Téléphone</label>
+    <input id="phone" type="tel" name="phone" placeholder="+212 ..." />
+    </div>
+
+    <div class="form__row">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" placeholder="votre@email.com" required />
+    </div>
+
+    <div class="form__row">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Décrivez votre logement et vos objectifs..." required></textarea>
+    </div>
+
+    <button class="btn btn--primary btn--lg" type="submit">
+        Envoyer
+    </button>
+</form>
   </div>
 </section>
 </main>
