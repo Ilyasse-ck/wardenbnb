@@ -4,19 +4,562 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wardenbnb</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+:root{
+  --bg: #4b2614;
+  --bg2: #3f1f12;
+  --text: #f4eee9;
+  --muted: rgba(244,238,233,.74);
+  --muted2: rgba(244,238,233,.58);
+  --line: rgba(244,238,233,.14);
+  --accent: #f2b54a;
+  --accent2: #e39a2f;
+  --radius: 18px;
+  --shadow: 0 14px 40px rgba(0,0,0,.45);
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+
+body{
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Helvetica Neue", sans-serif;
+  background:
+    radial-gradient(900px 520px at 50% 0%, rgba(242,181,74,.10), transparent 60%),
+    radial-gradient(700px 420px at 10% 20%, rgba(244,238,233,.06), transparent 62%),
+    linear-gradient(180deg, var(--bg2), var(--bg));
+  color: var(--text);
+}
+
+a{ color: inherit; text-decoration: none; }
+
+.container{
+  width: min(1100px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Topbar */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,0));
+  backdrop-filter: blur(10px);
+}
+
+.topbar__inner{
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 18px 0;
+  gap: 16px;
+}
+
+.brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  opacity: .98;
+  justify-self: start;
+}
+
+.brand__logo{
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: rgba(0,0,0,.18);
+  object-fit: cover;
+  box-shadow: 0 10px 26px rgba(0,0,0,.35);
+}
+
+.brand__name{
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: rgba(244,238,233,.86);
+}
+
+/* Nav */
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+}
+
+.nav__link{
+  font-size: 14.5px;
+  color: rgba(255,255,255,.78);
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background .2s ease, color .2s ease;
+  white-space: nowrap;
+}
+
+.nav__link:hover{
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+}
+
+/* Topbar actions */
+.topbar__actions{
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-weight: 650;
+  letter-spacing: .2px;
+  transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn:active{ transform: translateY(1px); }
+.btn--pill{ border-radius: 999px; }
+.btn--lg{ padding: 14px 22px; border-radius: 16px; }
+
+.btn--primary{
+  background: var(--accent);
+  color: #2a140b;
+  box-shadow: 0 12px 34px rgba(242,181,74,.22);
+}
+
+.btn--primary:hover{ background: var(--accent2); }
+
+.btn--ghost{
+  background: rgba(244,238,233,.06);
+  border-color: var(--line);
+  color: rgba(244,238,233,.86);
+}
+
+.btn--ghost:hover{ background: rgba(255,255,255,.08); }
+
+.btn__icon{
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  opacity: .9;
+}
+
+/* Lang switcher */
+.lang-switcher{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  color: rgba(244,238,233,.86);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease, opacity .2s ease;
+}
+
+.lang-btn:hover{
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.2);
+}
+
+.lang-btn.is-active{
+  display: none; /* Hide the active language button */
+}
+
+.lang-btn__flag{
+  width: 20px;
+  height: 15px;
+  border-radius: 3px;
+  object-fit: cover;
+  display: block;
+}
+
+.lang-btn__label{
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+
+/* Hero */
+.hero{
+  padding: 0;
+}
+
+.hero__inner{
+  text-align: center;
+  padding-top: 28px;
+  padding-bottom: 60px;
+}
+
+.pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.78);
+  box-shadow: var(--shadow);
+}
+
+.pill__dot{
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.hero__title{
+  margin: 30px 0 18px;
+  font-size: clamp(40px, 5.2vw, 72px);
+  line-height: 1.05;
+  letter-spacing: -1px;
+}
+
+.hero__accent{
+  font-style: italic;
+  font-weight: 500;
+  color: rgba(242,181,74,.90);
+}
+
+.hero__lead{
+  margin: 0 auto;
+  max-width: 720px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--muted2);
+}
+
+/* Pages sections */
+.page{
+  padding: 80px 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+.page__head{
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.page__title{
+  margin: 18px 0 10px;
+  font-size: clamp(28px, 3.2vw, 44px);
+  letter-spacing: -0.6px;
+}
+
+.page__lead{
+  margin: 0 auto;
+  max-width: 760px;
+  color: rgba(255,255,255,.55);
+  line-height: 1.6;
+}
+
+/* Cards grid */
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.card{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.card__title{
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.card__text{
+  margin: 0 0 12px;
+  color: rgba(255,255,255,.58);
+  line-height: 1.55;
+}
+
+.list{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,.65);
+}
+
+.list li{ margin: 7px 0; }
+
+/* Steps */
+.steps{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.step{
+  display: flex;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+}
+
+.step__n{
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(185,167,150,.18);
+  border: 1px solid rgba(185,167,150,.35);
+  color: rgba(185,167,150,.95);
+  font-weight: 700;
+}
+
+/* Pricing */
+.pricing{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.card--pricing{
+  display: flex;
+  flex-direction: column;
+}
+
+.card--pricing .list{
+  flex: 1;
+  margin-bottom: 18px;
+}
+
+.price{
+  margin: 10px 0 14px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.price span{
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,.55);
+}
+
+/* FAQ */
+.faq{ max-width: 860px; margin: 18px auto 0; }
+
+.faq__item{
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  border-radius: 18px;
+  padding: 14px 16px;
+  margin: 10px 0;
+}
+
+.faq__item summary{
+  cursor: pointer;
+  font-weight: 650;
+  list-style: none;
+}
+
+.faq__item summary::-webkit-details-marker{ display: none; }
+
+.faq__item p{
+  margin: 10px 0 0;
+  color: rgba(255,255,255,.6);
+  line-height: 1.6;
+}
+
+/* Form */
+.form{
+  max-width: 720px;
+  margin: 18px auto 0;
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+}
+
+.form__row{ display: grid; gap: 8px; margin-bottom: 14px; }
+.form label{ color: rgba(255,255,255,.72); font-size: 14px; }
+
+.form input,
+.form textarea,
+.form select{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.9);
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form input:focus,
+.form textarea:focus,
+.form select:focus{
+  border-color: rgba(185,167,150,.45);
+}
+
+.form select option{
+  background: #3f1f12;
+  color: rgba(255,255,255,.9);
+}
+
+/* Services checkbox options */
+.services-options{
+  display: grid;
+  gap: 12px;
+}
+
+.service-option{
+  display: block;
+  cursor: pointer;
+}
+
+.service-option input{
+  display: none;
+}
+
+.service-option__content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  transition: border-color .2s ease, background .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+
+.service-option__title{
+  color: rgba(255,255,255,.9);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.service-option__price{
+  color: var(--accent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.service-option:hover .service-option__content{
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.18);
+}
+
+.service-option input:checked + .service-option__content{
+  background: rgba(242,181,74,.12);
+  border-color: rgba(242,181,74,.55);
+  box-shadow: 0 10px 30px rgba(242,181,74,.12);
+}
+
+.service-option input:checked + .service-option__content .service-option__title{
+  color: #fff;
+}
+
+.service-option input:checked + .service-option__content .service-option__price{
+  color: #ffd27a;
+}
+
+/* RTL support */
+html[lang="ar"] body{
+  direction: rtl;
+}
+
+html[lang="ar"] .topbar__inner,
+html[lang="ar"] .hero__inner,
+html[lang="ar"] .page__head,
+html[lang="ar"] .form,
+html[lang="ar"] .card,
+html[lang="ar"] .step{
+  text-align: right;
+}
+
+html[lang="ar"] .nav{
+  flex-direction: row-reverse;
+}
+
+html[lang="ar"] .topbar__actions{
+  flex-direction: row-reverse;
+}
+
+html[lang="ar"] .list{
+  padding-left: 0;
+  padding-right: 18px;
+}
+
+/* Responsive */
+@media (max-width: 900px){
+  .topbar__inner{
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 14px;
+  }
+
+  .brand{ justify-self: center; }
+
+  .topbar__actions{
+    justify-self: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .steps{ grid-template-columns: 1fr; }
+  .pricing{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 520px){
+  .hero__inner{ padding-top: 48px; padding-bottom: 80px; }
+  .grid{ grid-template-columns: 1fr; }
+  .btn--lg{ width: min(360px, 100%); }
+}
+
+html{ scroll-behavior: smooth; }
+  </style>
 </head>
 <body>
 
-<main id="accueil" class="hero">
 <header class="topbar">
   <div class="container topbar__inner">
     <a class="brand" href="#accueil" aria-label="Wardenbnb - Home">
-      <img
-        class="brand__logo"
-        src="https://i.imgur.com/yvl3bGU.jpeg"
-        alt="Wardenbnb"
-      />
+      <img class="brand__logo" src="https://i.imgur.com/yvl3bGU.jpeg" alt="Wardenbnb" />
       <span class="brand__name">Wardenbnb</span>
     </a>
 
@@ -26,64 +569,67 @@
       <a href="#faq" class="nav__link" data-i18n="nav_faq">FAQ</a>
     </nav>
 
-  <div class="topbar__actions">
-    <a class="btn btn--pill btn--primary" href="#contact">
-      <span class="btn__icon" aria-hidden="true">✆</span>
-      <span data-i18n="contact_us">Contactez-nous</span>
-    </a>
+    <div class="topbar__actions">
+      <a class="btn btn--pill btn--primary" href="#contact">
+        <span class="btn__icon" aria-hidden="true">✆</span>
+        <span data-i18n="contact_us">Contactez-nous</span>
+      </a>
 
-    <div class="lang-switcher" aria-label="Language selector">
-      <button class="lang-btn is-active" type="button" data-lang="fr" aria-label="Français">
-        <span class="lang-btn__flag">🇫🇷</span>
-        <span class="lang-btn__label">FR</span>
-      </button>
-
-      <button class="lang-btn" type="button" data-lang="en" aria-label="English">
-        <span class="lang-btn__flag">🇬🇧</span>
-        <span class="lang-btn__label">EN</span>
-      </button>
-
-      <button class="lang-btn" type="button" data-lang="ar" aria-label="العربية">
-        <span class="lang-btn__flag">🇲🇦</span>
-        <span class="lang-btn__label">AR</span>
-      </button>
+      <div class="lang-switcher" aria-label="Language selector">
+        <button class="lang-btn" type="button" data-lang="fr" aria-label="Français">
+          <img class="lang-btn__flag" src="https://flagcdn.com/w20/fr.png" srcset="https://flagcdn.com/w40/fr.png 2x" width="20" height="15" alt="Français" />
+          <span class="lang-btn__label">FR</span>
+        </button>
+        <button class="lang-btn" type="button" data-lang="en" aria-label="English">
+          <img class="lang-btn__flag" src="https://flagcdn.com/w20/gb.png" srcset="https://flagcdn.com/w40/gb.png 2x" width="20" height="15" alt="English" />
+          <span class="lang-btn__label">EN</span>
+        </button>
+        <button class="lang-btn" type="button" data-lang="ar" aria-label="العربية">
+          <img class="lang-btn__flag" src="https://flagcdn.com/w20/ma.png" srcset="https://flagcdn.com/w40/ma.png 2x" width="20" height="15" alt="العربية" />
+          <span class="lang-btn__label">AR</span>
+        </button>
+      </div>
     </div>
-  </div>
   </div>
 </header>
 
-<main id="accueil" class="hero">
-  <div class="container hero__inner">
-    <div class="pill">
-      <span class="pill__dot" aria-hidden="true">•</span>
-      <span data-i18n="city">Tanger</span>
+<main id="accueil">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="pill">
+        <span class="pill__dot" aria-hidden="true">•</span>
+        <span data-i18n="city">Tanger</span>
+      </div>
+
+      <h1 class="hero__title">
+        <span data-i18n="hero_line1">Faites de votre</span><br />
+        <span data-i18n="hero_line2">logement une source</span><br />
+        <span class="hero__accent" data-i18n="hero_line3">de revenu passif</span>
+      </h1>
+
+      <p class="hero__lead" data-i18n="hero_lead">
+        Nous prenons soin de votre bien comme si c'était le nôtre, pour vous permettre de gagner
+        du temps, d'optimiser vos revenus et d'offrir à vos voyageurs un séjour inoubliable.
+      </p>
     </div>
+  </section>
 
-    <h1 class="hero__title">
-      <span data-i18n="hero_line1">Faites de votre</span><br />
-      <span data-i18n="hero_line2">logement une source</span><br />
-      <span class="hero__accent" data-i18n="hero_line3">de revenu passif</span>
-    </h1>
-
-    <p class="hero__lead" data-i18n="hero_lead">
-      Nous prenons soin de votre bien comme si c'était le nôtre, pour vous permettre de gagner
-      du temps, d'optimiser vos revenus et d'offrir à vos voyageurs un séjour inoubliable.
-    </p>
-  </div>
-
+  <!-- SERVICES -->
   <section id="services" class="page">
     <div class="container">
       <header class="page__head">
         <div class="pill"><span class="pill__dot">•</span> <span data-i18n="services_label">Services</span></div>
-        <h2 class="page__title" data-i18n="services_title">Tout ce qu’on gère pour vous</h2>
+        <h2 class="page__title" data-i18n="services_title">Tout ce qu'on gère pour vous</h2>
         <p class="page__lead" data-i18n="services_lead">
-          Wardenbnb s’occupe de l’opérationnel de A à Z pour maximiser vos revenus tout en améliorant l’expérience voyageur.
+          Wardenbnb s'occupe de l'opérationnel de A à Z pour maximiser vos revenus tout en améliorant l'expérience voyageur.
         </p>
       </header>
 
       <div class="grid">
         <article class="card">
-          <h3 class="card__title" data-i18n="service1_title">Création & optimisation de l’annonce</h3>
+          <h3 class="card__title" data-i18n="service1_title">Création & optimisation de l'annonce</h3>
           <p class="card__text" data-i18n="service1_text">Photos, description, règles du logement, optimisation sur les plateformes.</p>
           <ul class="list">
             <li data-i18n="service1_li1">Audit de votre annonce</li>
@@ -145,12 +691,13 @@
     </div>
   </section>
 
+  <!-- HOW IT WORKS -->
   <section id="how" class="page">
     <div class="container">
       <header class="page__head">
         <div class="pill"><span class="pill__dot">•</span> <span data-i18n="process_label">Process</span></div>
         <h2 class="page__title" data-i18n="how_title">Comment ça marche</h2>
-        <p class="page__lead" data-i18n="how_lead">Un onboarding simple, puis on s’occupe de tout.</p>
+        <p class="page__lead" data-i18n="how_lead">Un onboarding simple, puis on s'occupe de tout.</p>
       </header>
 
       <div class="steps">
@@ -158,8 +705,7 @@
           <span class="step__n">1</span>
           <div>
             <h3 data-i18n="step1_title">Analyse & stratégie</h3>
-            <p data-i18n="step1_text">Nous étudions votre bien et vos objectifs afin de définir une stratégie sur                   mesure.  <br><br>
-              Cela inclut l’estimation des revenus, le positionnement de l’annonce et l’optimisation des tarifs.</p>
+            <p data-i18n="step1_text">Nous étudions votre bien et vos objectifs afin de définir une stratégie sur mesure. Cela inclut l'estimation des revenus, le positionnement de l'annonce et l'optimisation des tarifs.</p>
           </div>
         </div>
 
@@ -167,8 +713,7 @@
           <span class="step__n">2</span>
           <div>
             <h3 data-i18n="step2_title">Mise en place & optimisation</h3>
-            <p data-i18n="step2_text">
-            Nous préparons votre logement pour la location : création ou amélioration de l’annonce, photos                         professionnelles et        mise en place des outils nécessaires pour maximiser la visibilité et les                   réservations.</p>
+            <p data-i18n="step2_text">Nous préparons votre logement pour la location : création ou amélioration de l'annonce, photos professionnelles et mise en place des outils nécessaires pour maximiser la visibilité et les réservations.</p>
           </div>
         </div>
 
@@ -183,6 +728,7 @@
     </div>
   </section>
 
+  <!-- OFFER / PRICING -->
   <section id="offer" class="page">
     <div class="container">
       <header class="page__head">
@@ -217,14 +763,15 @@
           </ul>
           <a class="btn btn--ghost btn--lg" href="#contact" data-i18n="contact_btn_2">Nous contacter</a>
         </article>
-                <article class="card card--pricing">
-          <h3 class="card__title" data-i18n="pricing2_title">Optimisation des annonces (One Shot)</h3>
-          <p class="price">3500 <span data-i18n="pricing_per">MAD</span></p>
+
+        <article class="card card--pricing">
+          <h3 class="card__title" data-i18n="pricing3_title">Optimisation des annonces (One Shot)</h3>
+          <p class="price">3500 <span data-i18n="pricing3_per">MAD</span></p>
           <ul class="list">
-            <li data-i18n="pricing2_li1">Photos professionnelles</li>
-            <li data-i18n="pricing2_li2">Rédaction et optimisation de l’annonce</li>
-            <li data-i18n="pricing2_li3">Amélioration de la visibilité sur les plateformes</li>
-            <li data-i18n="pricing2_li4">Conseil stratégique et accompagnement au lancement</li>
+            <li data-i18n="pricing3_li1">Photos professionnelles</li>
+            <li data-i18n="pricing3_li2">Rédaction et optimisation de l'annonce</li>
+            <li data-i18n="pricing3_li3">Amélioration de la visibilité sur les plateformes</li>
+            <li data-i18n="pricing3_li4">Conseil stratégique et accompagnement au lancement</li>
           </ul>
           <a class="btn btn--ghost btn--lg" href="#contact" data-i18n="contact_btn_2">Nous contacter</a>
         </article>
@@ -232,18 +779,19 @@
     </div>
   </section>
 
+  <!-- FAQ -->
   <section id="faq" class="page">
     <div class="container">
       <header class="page__head">
         <div class="pill"><span class="pill__dot">•</span> FAQ</div>
         <h2 class="page__title" data-i18n="faq_title">Questions fréquentes</h2>
-        <p class="page__lead" data-i18n="faq_lead">Réponses rapides aux questions qu’on nous pose le plus.</p>
+        <p class="page__lead" data-i18n="faq_lead">Réponses rapides aux questions qu'on nous pose le plus.</p>
       </header>
 
       <div class="faq">
         <details class="faq__item">
           <summary data-i18n="faq1_q">Combien de temps pour démarrer ?</summary>
-          <p data-i18n="faq1_a">En général, quelques jours selon l’état du logement et les disponibilités.</p>
+          <p data-i18n="faq1_a">En général, quelques jours selon l'état du logement et les disponibilités.</p>
         </details>
         <details class="faq__item">
           <summary data-i18n="faq2_q">Qui fixe les prix ?</summary>
@@ -251,12 +799,13 @@
         </details>
         <details class="faq__item">
           <summary data-i18n="faq3_q">Comment suivez-vous les performances ?</summary>
-          <p data-i18n="faq3_a">Reporting régulier : taux d’occupation, revenus, commentaires, points d’amélioration.</p>
+          <p data-i18n="faq3_a">Reporting régulier : taux d'occupation, revenus, commentaires, points d'amélioration.</p>
         </details>
       </div>
     </div>
   </section>
 
+  <!-- CONTACT -->
   <section id="contact" class="page">
     <div class="container">
       <header class="page__head">
@@ -265,350 +814,465 @@
         <p class="page__lead" data-i18n="contact_lead">Laissez vos informations, nous vous répondons rapidement avec une estimation personnalisée.</p>
       </header>
 
-  <form id="contact-form" class="form" action="https://formspree.io/f/mzdjqewj" method="POST">
-    <div class="form__row">
-      <label for="full-name">Nom complet</label>
-      <input id="full-name" type="text" name="full_name" placeholder="Votre nom complet" required />
-    </div>
+      <form id="contact-form" class="form" action="https://formspree.io/f/mzdjqewj" method="POST">
+        <div class="form__row">
+          <label for="full-name" data-i18n="label_name">Nom complet</label>
+          <input id="full-name" type="text" name="full_name" placeholder="Votre nom complet" required />
+        </div>
 
-    <div class="form__row">
-      <label for="phone">Téléphone</label>
-      <input id="phone" type="tel" name="phone" placeholder="+212 ..." required />
-    </div>
+        <div class="form__row">
+          <label for="phone" data-i18n="label_phone">Téléphone</label>
+          <input id="phone" type="tel" name="phone" placeholder="+212 ..." required />
+        </div>
 
-    <div class="form__row">
-      <label for="email">Email</label>
-      <input id="email" type="email" name="email" placeholder="votre@email.com" required />
-    </div>
+        <div class="form__row">
+          <label for="email" data-i18n="label_email">Email</label>
+          <input id="email" type="email" name="email" placeholder="votre@email.com" required />
+        </div>
 
-    <div class="form__row">
-      <label for="property-type">Type de bien</label>
-      <select id="property-type" name="property_type" required>
-        <option value="">Sélectionnez un type de bien</option>
-        <option value="Appartement">Appartement</option>
-        <option value="Villa">Villa</option>
-        <option value="Studio">Studio</option>
-        <option value="Autre">Autre</option>
-      </select>
-    </div>
+        <div class="form__row">
+          <label for="property-type" data-i18n="label_property">Type de bien</label>
+          <select id="property-type" name="property_type" required>
+            <option value="" data-i18n="prop_select">Sélectionnez un type de bien</option>
+            <option value="Appartement" data-i18n="prop_apt">Appartement</option>
+            <option value="Villa" data-i18n="prop_villa">Villa</option>
+            <option value="Studio" data-i18n="prop_studio">Studio</option>
+            <option value="Autre" data-i18n="prop_other">Autre</option>
+          </select>
+        </div>
 
-   <div class="form__row">
-  <label>Services souhaités</label>
+        <div class="form__row">
+          <label data-i18n="label_services">Services souhaités</label>
+          <div class="services-options">
+            <label class="service-option">
+              <input type="checkbox" name="services[]" value="Gestion complète (20%)" />
+              <span class="service-option__content">
+                <span class="service-option__title" data-i18n="pricing1_title">Gestion complète</span>
+                <span class="service-option__price">20%</span>
+              </span>
+            </label>
 
-  <div class="services-options">
-    <label class="service-option">
-      <input type="checkbox" name="services[]" value="Gestion complète (20 %)" />
-      <span class="service-option__content">
-        <span class="service-option__title">Gestion complète</span>
-        <span class="service-option__price">20 %</span>
-      </span>
-    </label>
+            <label class="service-option">
+              <input type="checkbox" name="services[]" value="Offre digitale & optimisation (13%)" />
+              <span class="service-option__content">
+                <span class="service-option__title" data-i18n="pricing2_title">Offre digitale & optimisation</span>
+                <span class="service-option__price">13%</span>
+              </span>
+            </label>
 
-    <label class="service-option">
-      <input type="checkbox" name="services[]" value="Offre digitale & optimisation (13 %)" />
-      <span class="service-option__content">
-        <span class="service-option__title">Offre digitale & optimisation</span>
-        <span class="service-option__price">13 %</span>
-      </span>
-    </label>
+            <label class="service-option">
+              <input type="checkbox" name="services[]" value="Optimisation annonce (3500 MAD)" />
+              <span class="service-option__content">
+                <span class="service-option__title" data-i18n="pricing3_title">Optimisation annonce (One Shot)</span>
+                <span class="service-option__price">3500 MAD</span>
+              </span>
+            </label>
+          </div>
+        </div>
 
-    <label class="service-option">
-      <input type="checkbox" name="services[]" value="Optimisation annonce (3500 DH)" />
-      <span class="service-option__content">
-        <span class="service-option__title">Optimisation annonce</span>
-        <span class="service-option__price">3500 DH</span>
-      </span>
-    </label>
-  </div>
-</div>
-    </fieldset>
+        <button id="submit-btn" class="btn btn--primary btn--lg" type="submit" data-i18n="send_btn">
+          Envoyer
+        </button>
 
-    <button id="submit-btn" class="btn btn--primary btn--lg" type="submit">
-      Envoyer
-    </button>
+        <p id="form-success" style="display:none; margin-top:12px; color: lightgreen;" data-i18n="form_success">
+          Message envoyé avec succès.
+        </p>
 
-    <p id="form-success" style="display:none; margin-top:12px; color: lightgreen;">
-      Message envoyé avec succès.
-    </p>
-
-    <p id="form-error" style="display:none; margin-top:12px; color: #ff8a8a;">
-      Une erreur est survenue. Réessayez.
-    </p>
-  </form>
+        <p id="form-error" style="display:none; margin-top:12px; color: #ff8a8a;" data-i18n="form_error">
+          Une erreur est survenue. Réessayez.
+        </p>
+      </form>
     </div>
   </section>
+
 </main>
 
 <script>
-  const translations = {
-    fr: {
-      nav_how: "Comment ça marche ?",
-      nav_offer: "Notre offre",
-      nav_faq: "FAQ",
-      contact_us: "Contactez-nous",
-      city: "Tanger",
-      hero_line1: "Faites de votre",
-      hero_line2: "logement une source",
-      hero_line3: "de revenu passif",
-      hero_lead: "Nous prenons soin de votre bien comme si c'était le nôtre, pour vous permettre de gagner du temps, d'optimiser vos revenus et d'offrir à vos voyageurs un séjour inoubliable.",
-      free_audit: "Audit Gratuit",
-      contact_btn: "Contacter",
-      services_label: "Services",
-      services_title: "Tout ce qu’on gère pour vous",
-      services_lead: "Wardenbnb s’occupe de l’opérationnel de A à Z pour maximiser vos revenus tout en améliorant l’expérience voyageur.",
-      service1_title: "Création & optimisation de l’annonce",
-      service1_text: "Photos, description, règles du logement, optimisation sur les plateformes.",
-      service1_li1: "Audit de votre annonce",
-      service1_li2: "Conseils de mise en scène",
-      service1_li3: "Optimisation conversion",
-      service2_title: "Tarification dynamique",
-      service2_text: "Ajustement des prix selon saison, demande, événements et concurrence.",
-      service2_li1: "Stratégie saisonnière",
-      service2_li2: "Min de nuits",
-      service2_li3: "Optimisation RevPAR",
-      service3_title: "Communication voyageurs 7j/7",
-      service3_text: "Réponses rapides avant et pendant le séjour, assistance, incidents.",
-      service3_li1: "Messages automatisés + humain",
-      service3_li2: "Gestion demandes",
-      service3_li3: "Amélioration avis",
-      service4_title: "Check-in / Check-out",
-      service4_text: "Organisation arrivée/départ, accès autonome, inventaire.",
-      service4_li1: "Accès autonome",
-      service4_li2: "Contrôle logement",
-      service4_li3: "Suivi horaires",
-      service5_title: "Ménage hôtelier & linge",
-      service5_text: "Nettoyage entre séjours, rotation du linge, réassort.",
-      service5_li1: "Checklists qualité",
-      service5_li2: "Linge propre",
-      service5_li3: "Consommables",
-      service6_title: "Maintenance & réparations",
-      service6_text: "Coordination interventions, suivi prestataires, prévention.",
-      service6_li1: "Interventions rapides",
-      service6_li2: "Devis/validation",
-      service6_li3: "Suivi avant/après",
-      process_label: "Process",
-      how_title: "Comment ça marche",
-      how_lead: "Un onboarding simple, puis on s’occupe de tout.",
-      step1_title: "Audit",
-      step1_text: "État du logement + potentiel + objectifs.",
-      step2_title: "Mise en ligne",
-      step2_text: "Annonce, prix, calendrier, checklists.",
-      step3_title: "Exploitation",
-      step3_text: "Voyageurs, ménage, maintenance, reporting.",
-      offer_label: "Offre",
-      offer_title: "Notre offre",
-      offer_lead: "Une gestion complète, transparente, orientée performance.",
-      pricing1_title: "Gestion complète",
-      pricing_per: "/ revenus",
-      pricing1_li1: "Optimisation annonce & prix",
-      pricing1_li2: "Communication voyageurs",
-      pricing1_li3: "Check-in/out",
-      pricing1_li4: "Coordination ménage",
-      request_audit: "Demander un audit",
-      pricing2_title: "À la carte",
-      pricing2_price: "Sur devis",
-      pricing2_li1: "Ménage + linge",
-      pricing2_li2: "Photos pro",
-      pricing2_li3: "Maintenance",
-      pricing2_li4: "Conseil & setup",
-      contact_btn_2: "Nous contacter",
-      faq_title: "Questions fréquentes",
-      faq_lead: "Réponses rapides aux questions qu’on nous pose le plus.",
-      faq1_q: "Combien de temps pour démarrer ?",
-      faq1_a: "En général, quelques jours selon l’état du logement et les disponibilités.",
-      faq2_q: "Qui fixe les prix ?",
-      faq2_a: "On propose une stratégie de prix dynamique, validée avec toi au départ.",
-      faq3_q: "Comment suivez-vous les performances ?",
-      faq3_a: "Reporting régulier : taux d’occupation, revenus, commentaires, points d’amélioration.",
-      contact_label: "Contact",
-      contact_title: "Parlons de votre logement",
-      contact_lead: "Laissez vos infos, on vous répond rapidement.",
-      label_name: "Nom",
-      label_phone: "Téléphone",
-      label_email: "Email",
-      label_message: "Message",
-      send_btn: "Envoyer",
-      form_success: "Message envoyé avec succès.",
-      form_error: "Une erreur est survenue. Réessayez."
-    },
-    en: {
-      nav_how: "How it works",
-      nav_offer: "Our offer",
-      nav_faq: "FAQ",
-      contact_us: "Contact us",
-      city: "Tangier",
-      hero_line1: "Turn your",
-      hero_line2: "property into a source",
-      hero_line3: "of passive income",
-      hero_lead: "We take care of your property as if it were our own, so you can save time, maximize your income, and offer your guests an unforgettable stay.",
-      free_audit: "Free Audit",
-      contact_btn: "Contact",
-      services_label: "Services",
-      services_title: "Everything we handle for you",
-      services_lead: "Wardenbnb takes care of operations from A to Z to maximize your revenue while improving the guest experience.",
-      service1_title: "Listing creation & optimization",
-      service1_text: "Photos, description, house rules, and platform optimization.",
-      service1_li1: "Listing audit",
-      service1_li2: "Staging advice",
-      service1_li3: "Conversion optimization",
-      service2_title: "Dynamic pricing",
-      service2_text: "Price adjustments based on seasonality, demand, events, and competition.",
-      service2_li1: "Seasonal strategy",
-      service2_li2: "Minimum nights",
-      service2_li3: "RevPAR optimization",
-      service3_title: "Guest communication 7 days a week",
-      service3_text: "Fast responses before and during the stay, support, and incident handling.",
-      service3_li1: "Automated + human messages",
-      service3_li2: "Request management",
-      service3_li3: "Review improvement",
-      service4_title: "Check-in / Check-out",
-      service4_text: "Arrival/departure organization, self check-in, inventory.",
-      service4_li1: "Self check-in",
-      service4_li2: "Property inspection",
-      service4_li3: "Schedule tracking",
-      service5_title: "Hotel-quality cleaning & linen",
-      service5_text: "Cleaning between stays, linen rotation, and restocking.",
-      service5_li1: "Quality checklists",
-      service5_li2: "Fresh linen",
-      service5_li3: "Consumables",
-      service6_title: "Maintenance & repairs",
-      service6_text: "Intervention coordination, vendor follow-up, and prevention.",
-      service6_li1: "Fast interventions",
-      service6_li2: "Quotes/approval",
-      service6_li3: "Before/after follow-up",
-      process_label: "Process",
-      how_title: "How it works",
-      how_lead: "A simple onboarding, then we handle everything.",
-      step1_title: "Audit",
-      step1_text: "Property condition + potential + objectives.",
-      step2_title: "Launch",
-      step2_text: "Listing, pricing, calendar, checklists.",
-      step3_title: "Operations",
-      step3_text: "Guests, cleaning, maintenance, reporting.",
-      offer_label: "Offer",
-      offer_title: "Our offer",
-      offer_lead: "Full-service management, transparent, and performance-driven.",
-      pricing1_title: "Full management",
-      pricing_per: "/ revenue",
-      pricing1_li1: "Listing & pricing optimization",
-      pricing1_li2: "Guest communication",
-      pricing1_li3: "Check-in/out",
-      pricing1_li4: "Cleaning coordination",
-      request_audit: "Request an audit",
-      pricing2_title: "À la carte",
-      pricing2_price: "Custom quote",
-      pricing2_li1: "Cleaning + linen",
-      pricing2_li2: "Professional photos",
-      pricing2_li3: "Maintenance",
-      pricing2_li4: "Consulting & setup",
-      contact_btn_2: "Contact us",
-      faq_title: "Frequently asked questions",
-      faq_lead: "Quick answers to the questions we get most often.",
-      faq1_q: "How long does it take to get started?",
-      faq1_a: "Usually a few days depending on the condition of the property and availability.",
-      faq2_q: "Who sets the prices?",
-      faq2_a: "We propose a dynamic pricing strategy, validated with you from the start.",
-      faq3_q: "How do you track performance?",
-      faq3_a: "Regular reporting: occupancy rate, revenue, guest feedback, and improvement points.",
-      contact_label: "Contact",
-      contact_title: "Let’s talk about your property",
-      contact_lead: "Leave your details and we’ll get back to you quickly.",
-      label_name: "Name",
-      label_phone: "Phone",
-      label_email: "Email",
-      label_message: "Message",
-      send_btn: "Send",
-      form_success: "Message sent successfully.",
-      form_error: "An error occurred. Please try again."
-    }
+const translations = {
+  fr: {
+    nav_how: "Comment ça marche ?",
+    nav_offer: "Notre offre",
+    nav_faq: "FAQ",
+    contact_us: "Contactez-nous",
+    city: "Tanger",
+    hero_line1: "Faites de votre",
+    hero_line2: "logement une source",
+    hero_line3: "de revenu passif",
+    hero_lead: "Nous prenons soin de votre bien comme si c'était le nôtre, pour vous permettre de gagner du temps, d'optimiser vos revenus et d'offrir à vos voyageurs un séjour inoubliable.",
+    services_label: "Services",
+    services_title: "Tout ce qu'on gère pour vous",
+    services_lead: "Wardenbnb s'occupe de l'opérationnel de A à Z pour maximiser vos revenus tout en améliorant l'expérience voyageur.",
+    service1_title: "Création & optimisation de l'annonce",
+    service1_text: "Photos, description, règles du logement, optimisation sur les plateformes.",
+    service1_li1: "Audit de votre annonce",
+    service1_li2: "Conseils de mise en scène",
+    service1_li3: "Optimisation conversion",
+    service2_title: "Tarification dynamique",
+    service2_text: "Ajustement des prix selon saison, demande, événements et concurrence.",
+    service2_li1: "Stratégie saisonnière",
+    service2_li2: "Min de nuits",
+    service2_li3: "Optimisation RevPAR",
+    service3_title: "Communication voyageurs 7j/7",
+    service3_text: "Réponses rapides avant et pendant le séjour, assistance, incidents.",
+    service3_li1: "Messages automatisés + humain",
+    service3_li2: "Gestion demandes",
+    service3_li3: "Amélioration avis",
+    service4_title: "Check-in / Check-out",
+    service4_text: "Organisation arrivée/départ, accès autonome, inventaire.",
+    service4_li1: "Accès autonome",
+    service4_li2: "Contrôle logement",
+    service4_li3: "Suivi horaires",
+    service5_title: "Ménage hôtelier & linge",
+    service5_text: "Nettoyage entre séjours, rotation du linge, réassort.",
+    service5_li1: "Checklists qualité",
+    service5_li2: "Linge propre",
+    service5_li3: "Consommables",
+    service6_title: "Maintenance & réparations",
+    service6_text: "Coordination interventions, suivi prestataires, prévention.",
+    service6_li1: "Interventions rapides",
+    service6_li2: "Devis/validation",
+    service6_li3: "Suivi avant/après",
+    process_label: "Process",
+    how_title: "Comment ça marche",
+    how_lead: "Un onboarding simple, puis on s'occupe de tout.",
+    step1_title: "Analyse & stratégie",
+    step1_text: "Nous étudions votre bien et vos objectifs afin de définir une stratégie sur mesure. Cela inclut l'estimation des revenus, le positionnement de l'annonce et l'optimisation des tarifs.",
+    step2_title: "Mise en place & optimisation",
+    step2_text: "Nous préparons votre logement pour la location : création ou amélioration de l'annonce, photos professionnelles et mise en place des outils nécessaires pour maximiser la visibilité et les réservations.",
+    step3_title: "Gestion & performance",
+    step3_text: "Nous assurons la gestion quotidienne (communication voyageurs, suivi, optimisation continue) et veillons à maximiser vos revenus avec un reporting transparent.",
+    offer_label: "Offre",
+    offer_title: "Notre offre",
+    offer_lead: "Une gestion complète, transparente, orientée performance.",
+    pricing1_title: "Gestion complète",
+    pricing_per: "/ revenus générés",
+    pricing1_li1: "Optimisation des annonces et des tarifs",
+    pricing1_li2: "Gestion de la communication avec les voyageurs",
+    pricing1_li3: "Organisation des check-in / check-out",
+    pricing1_li4: "Coordination du ménage et de la maintenance",
+    pricing1_li5: "Gestion des fiches de police conformément à la réglementation",
+    pricing1_li6: "Assistance et suivi des assurances liées à la location",
+    pricing2_title: "Offre Digitale & Optimisation",
+    pricing2_li1: "Photos professionnelles de haute qualité",
+    pricing2_li2: "Optimisation complète de vos annonces",
+    pricing2_li3: "Mise en place et gestion de la stratégie de prix (pricing dynamique)",
+    pricing2_li4: "Communication avec les voyageurs (avant, pendant et après séjour)",
+    pricing3_title: "Optimisation des annonces (One Shot)",
+    pricing3_per: "MAD",
+    pricing3_li1: "Photos professionnelles",
+    pricing3_li2: "Rédaction et optimisation de l'annonce",
+    pricing3_li3: "Amélioration de la visibilité sur les plateformes",
+    pricing3_li4: "Conseil stratégique et accompagnement au lancement",
+    contact_btn_2: "Nous contacter",
+    faq_title: "Questions fréquentes",
+    faq_lead: "Réponses rapides aux questions qu'on nous pose le plus.",
+    faq1_q: "Combien de temps pour démarrer ?",
+    faq1_a: "En général, quelques jours selon l'état du logement et les disponibilités.",
+    faq2_q: "Qui fixe les prix ?",
+    faq2_a: "On propose une stratégie de prix dynamique, validée avec toi au départ.",
+    faq3_q: "Comment suivez-vous les performances ?",
+    faq3_a: "Reporting régulier : taux d'occupation, revenus, commentaires, points d'amélioration.",
+    contact_label: "Contact",
+    contact_title: "Parlons de votre logement",
+    contact_lead: "Laissez vos informations, nous vous répondons rapidement avec une estimation personnalisée.",
+    label_name: "Nom complet",
+    label_phone: "Téléphone",
+    label_email: "Email",
+    label_property: "Type de bien",
+    label_services: "Services souhaités",
+    prop_select: "Sélectionnez un type de bien",
+    prop_apt: "Appartement",
+    prop_villa: "Villa",
+    prop_studio: "Studio",
+    prop_other: "Autre",
+    send_btn: "Envoyer",
+    form_success: "Message envoyé avec succès.",
+    form_error: "Une erreur est survenue. Réessayez."
+  },
+  en: {
+    nav_how: "How it works",
+    nav_offer: "Our offer",
+    nav_faq: "FAQ",
+    contact_us: "Contact us",
+    city: "Tangier",
+    hero_line1: "Turn your",
+    hero_line2: "property into a source",
+    hero_line3: "of passive income",
+    hero_lead: "We take care of your property as if it were our own, so you can save time, maximize your income, and offer your guests an unforgettable stay.",
+    services_label: "Services",
+    services_title: "Everything we handle for you",
+    services_lead: "Wardenbnb takes care of operations from A to Z to maximize your revenue while improving the guest experience.",
+    service1_title: "Listing creation & optimization",
+    service1_text: "Photos, description, house rules, and platform optimization.",
+    service1_li1: "Listing audit",
+    service1_li2: "Staging advice",
+    service1_li3: "Conversion optimization",
+    service2_title: "Dynamic pricing",
+    service2_text: "Price adjustments based on seasonality, demand, events, and competition.",
+    service2_li1: "Seasonal strategy",
+    service2_li2: "Minimum nights",
+    service2_li3: "RevPAR optimization",
+    service3_title: "Guest communication 7 days a week",
+    service3_text: "Fast responses before and during the stay, support, and incident handling.",
+    service3_li1: "Automated + human messages",
+    service3_li2: "Request management",
+    service3_li3: "Review improvement",
+    service4_title: "Check-in / Check-out",
+    service4_text: "Arrival/departure organization, self check-in, inventory.",
+    service4_li1: "Self check-in",
+    service4_li2: "Property inspection",
+    service4_li3: "Schedule tracking",
+    service5_title: "Hotel-quality cleaning & linen",
+    service5_text: "Cleaning between stays, linen rotation, and restocking.",
+    service5_li1: "Quality checklists",
+    service5_li2: "Fresh linen",
+    service5_li3: "Consumables",
+    service6_title: "Maintenance & repairs",
+    service6_text: "Intervention coordination, vendor follow-up, and prevention.",
+    service6_li1: "Fast interventions",
+    service6_li2: "Quotes/approval",
+    service6_li3: "Before/after follow-up",
+    process_label: "Process",
+    how_title: "How it works",
+    how_lead: "A simple onboarding, then we handle everything.",
+    step1_title: "Analysis & strategy",
+    step1_text: "We study your property and objectives to define a tailored strategy. This includes revenue estimation, listing positioning, and pricing optimization.",
+    step2_title: "Setup & optimization",
+    step2_text: "We prepare your property for rental: creating or improving the listing, professional photos, and implementing the necessary tools to maximize visibility and bookings.",
+    step3_title: "Management & performance",
+    step3_text: "We handle daily operations (guest communication, follow-up, continuous optimization) and ensure maximum revenue with transparent reporting.",
+    offer_label: "Offer",
+    offer_title: "Our offer",
+    offer_lead: "Full-service management, transparent, and performance-driven.",
+    pricing1_title: "Full management",
+    pricing_per: "/ revenue generated",
+    pricing1_li1: "Listing & pricing optimization",
+    pricing1_li2: "Guest communication management",
+    pricing1_li3: "Check-in / check-out organization",
+    pricing1_li4: "Cleaning & maintenance coordination",
+    pricing1_li5: "Police record management per regulations",
+    pricing1_li6: "Rental insurance assistance & follow-up",
+    pricing2_title: "Digital & Optimization offer",
+    pricing2_li1: "High-quality professional photos",
+    pricing2_li2: "Complete listing optimization",
+    pricing2_li3: "Dynamic pricing strategy setup & management",
+    pricing2_li4: "Guest communication (before, during & after stay)",
+    pricing3_title: "Listing Optimization (One Shot)",
+    pricing3_per: "MAD",
+    pricing3_li1: "Professional photos",
+    pricing3_li2: "Listing writing & optimization",
+    pricing3_li3: "Platform visibility improvement",
+    pricing3_li4: "Strategic advice & launch support",
+    contact_btn_2: "Contact us",
+    faq_title: "Frequently asked questions",
+    faq_lead: "Quick answers to the questions we get most often.",
+    faq1_q: "How long does it take to get started?",
+    faq1_a: "Usually a few days, depending on the property's condition and availability.",
+    faq2_q: "Who sets the prices?",
+    faq2_a: "We propose a dynamic pricing strategy, validated with you from the start.",
+    faq3_q: "How do you track performance?",
+    faq3_a: "Regular reporting: occupancy rate, revenue, guest reviews, and improvement points.",
+    contact_label: "Contact",
+    contact_title: "Let's talk about your property",
+    contact_lead: "Leave your details and we'll get back to you quickly with a personalized estimate.",
+    label_name: "Full name",
+    label_phone: "Phone",
+    label_email: "Email",
+    label_property: "Property type",
+    label_services: "Desired services",
+    prop_select: "Select a property type",
+    prop_apt: "Apartment",
+    prop_villa: "Villa",
+    prop_studio: "Studio",
+    prop_other: "Other",
+    send_btn: "Send",
+    form_success: "Message sent successfully.",
+    form_error: "An error occurred. Please try again."
+  },
+  ar: {
+    nav_how: "كيف يعمل؟",
+    nav_offer: "عرضنا",
+    nav_faq: "الأسئلة الشائعة",
+    contact_us: "اتصل بنا",
+    city: "طنجة",
+    hero_line1: "اجعل من",
+    hero_line2: "عقارك مصدراً",
+    hero_line3: "للدخل السلبي",
+    hero_lead: "نعتني بعقارك كما لو كان ملكنا، لتوفير وقتك وتعظيم دخلك وتقديم تجربة لا تُنسى لضيوفك.",
+    services_label: "الخدمات",
+    services_title: "كل ما ندير نيابةً عنك",
+    services_lead: "تتولى Wardenbnb العمليات من الألف إلى الياء لتعظيم عائداتك مع تحسين تجربة الضيف.",
+    service1_title: "إنشاء الإعلان وتحسينه",
+    service1_text: "الصور والوصف وقواعد السكن وتحسين الظهور على المنصات.",
+    service1_li1: "تدقيق إعلانك",
+    service1_li2: "نصائح الإخراج والتصوير",
+    service1_li3: "تحسين معدل التحويل",
+    service2_title: "التسعير الديناميكي",
+    service2_text: "تعديل الأسعار وفق المواسم والطلب والفعاليات والمنافسة.",
+    service2_li1: "استراتيجية موسمية",
+    service2_li2: "الحد الأدنى للليالي",
+    service2_li3: "تحسين RevPAR",
+    service3_title: "التواصل مع الضيوف 7 أيام في الأسبوع",
+    service3_text: "ردود سريعة قبل وأثناء الإقامة، دعم وإدارة الحوادث.",
+    service3_li1: "رسائل آلية + بشرية",
+    service3_li2: "إدارة الطلبات",
+    service3_li3: "تحسين التقييمات",
+    service4_title: "تسجيل الوصول والمغادرة",
+    service4_text: "تنظيم الوصول والمغادرة، الدخول الذاتي، الجرد.",
+    service4_li1: "دخول ذاتي",
+    service4_li2: "فحص العقار",
+    service4_li3: "متابعة المواعيد",
+    service5_title: "التنظيف الفندقي والأقمشة",
+    service5_text: "تنظيف بين الإقامات، تدوير الأقمشة، إعادة التموين.",
+    service5_li1: "قوائم فحص الجودة",
+    service5_li2: "أقمشة نظيفة",
+    service5_li3: "المستهلكات",
+    service6_title: "الصيانة والإصلاحات",
+    service6_text: "تنسيق التدخلات ومتابعة الموردين والوقاية.",
+    service6_li1: "تدخلات سريعة",
+    service6_li2: "عروض الأسعار/الموافقة",
+    service6_li3: "متابعة قبل وبعد",
+    process_label: "العملية",
+    how_title: "كيف يعمل",
+    how_lead: "إعداد بسيط، ثم نتولى كل شيء.",
+    step1_title: "التحليل والاستراتيجية",
+    step1_text: "ندرس عقارك وأهدافك لتحديد استراتيجية مخصصة. يشمل ذلك تقدير الإيرادات وتموضع الإعلان وتحسين الأسعار.",
+    step2_title: "الإعداد والتحسين",
+    step2_text: "نُعدّ عقارك للإيجار: إنشاء الإعلان أو تحسينه، صور احترافية وتطبيق الأدوات اللازمة لتعظيم الظهور والحجوزات.",
+    step3_title: "الإدارة والأداء",
+    step3_text: "نتولى العمليات اليومية (تواصل الضيوف، المتابعة، التحسين المستمر) ونضمن أقصى إيرادات مع تقارير شفافة.",
+    offer_label: "العرض",
+    offer_title: "عرضنا",
+    offer_lead: "إدارة كاملة، شفافة، موجهة نحو الأداء.",
+    pricing1_title: "الإدارة الكاملة",
+    pricing_per: "/ من الإيرادات",
+    pricing1_li1: "تحسين الإعلانات والأسعار",
+    pricing1_li2: "إدارة التواصل مع الضيوف",
+    pricing1_li3: "تنظيم تسجيل الوصول والمغادرة",
+    pricing1_li4: "تنسيق التنظيف والصيانة",
+    pricing1_li5: "إدارة سجلات الشرطة وفق اللوائح",
+    pricing1_li6: "مساعدة ومتابعة تأمين الإيجار",
+    pricing2_title: "العرض الرقمي والتحسين",
+    pricing2_li1: "صور احترافية عالية الجودة",
+    pricing2_li2: "تحسين كامل لإعلاناتك",
+    pricing2_li3: "إعداد وإدارة استراتيجية التسعير الديناميكي",
+    pricing2_li4: "التواصل مع الضيوف (قبل وأثناء وبعد الإقامة)",
+    pricing3_title: "تحسين الإعلان (مرة واحدة)",
+    pricing3_per: "درهم",
+    pricing3_li1: "صور احترافية",
+    pricing3_li2: "كتابة الإعلان وتحسينه",
+    pricing3_li3: "تحسين الظهور على المنصات",
+    pricing3_li4: "نصائح استراتيجية ودعم الإطلاق",
+    contact_btn_2: "اتصل بنا",
+    faq_title: "الأسئلة الشائعة",
+    faq_lead: "إجابات سريعة على أكثر الأسئلة شيوعاً.",
+    faq1_q: "كم من الوقت يستغرق البدء؟",
+    faq1_a: "عادةً بضعة أيام حسب حالة العقار والتوفر.",
+    faq2_q: "من يحدد الأسعار؟",
+    faq2_a: "نقترح استراتيجية تسعير ديناميكية يتم التحقق منها معك في البداية.",
+    faq3_q: "كيف تتابعون الأداء؟",
+    faq3_a: "تقارير منتظمة: معدل الإشغال، الإيرادات، تقييمات الضيوف، ونقاط التحسين.",
+    contact_label: "التواصل",
+    contact_title: "لنتحدث عن عقارك",
+    contact_lead: "اتركوا بياناتكم وسنرد عليكم بسرعة بتقدير مخصص.",
+    label_name: "الاسم الكامل",
+    label_phone: "الهاتف",
+    label_email: "البريد الإلكتروني",
+    label_property: "نوع العقار",
+    label_services: "الخدمات المطلوبة",
+    prop_select: "اختر نوع العقار",
+    prop_apt: "شقة",
+    prop_villa: "فيلا",
+    prop_studio: "استوديو",
+    prop_other: "أخرى",
+    send_btn: "إرسال",
+    form_success: "تم إرسال الرسالة بنجاح.",
+    form_error: "حدث خطأ. يرجى المحاولة مرة أخرى."
+  }
+};
+
+let currentLang = "fr";
+
+function updatePlaceholders(lang) {
+  const placeholders = {
+    fr: { name: "Votre nom complet", phone: "+212 ...", email: "votre@email.com" },
+    en: { name: "Your full name",    phone: "+212 ...", email: "your@email.com"  },
+    ar: { name: "اسمك الكامل",       phone: "+212 ...", email: "بريدك@الإلكتروني.com" }
   };
+  const p = placeholders[lang];
+  document.getElementById("full-name").placeholder = p.name;
+  document.getElementById("phone").placeholder     = p.phone;
+  document.getElementById("email").placeholder     = p.email;
+}
 
-  let currentLang = "fr";
+function switchLanguage(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
 
-  function updatePlaceholders(lang) {
-    const placeholders = {
-      fr: {
-        name: "Votre nom",
-        phone: "+212 ...",
-        email: "votre@email.com",
-        message: "Décrivez votre logement et vos objectifs..."
-      },
-      en: {
-        name: "Your name",
-        phone: "+212 ...",
-        email: "your@email.com",
-        message: "Describe your property and your goals..."
-      }
-    };
-
-    document.getElementById("name").placeholder = placeholders[lang].name;
-    document.getElementById("phone").placeholder = placeholders[lang].phone;
-    document.getElementById("email").placeholder = placeholders[lang].email;
-    document.getElementById("message").placeholder = placeholders[lang].message;
-  }
-
-  function switchLanguage(lang) {
-    document.documentElement.lang = lang;
-
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n");
-      if (translations[lang][key]) {
-        el.textContent = translations[lang][key];
-      }
-    });
-
-    updatePlaceholders(lang);
-
-    const toggleBtn = document.getElementById("lang-toggle");
-    toggleBtn.textContent = lang === "fr" ? "EN" : "FR";
-
-    currentLang = lang;
-  }
-
-  document.getElementById("lang-toggle").addEventListener("click", function () {
-    switchLanguage(currentLang === "fr" ? "en" : "fr");
+  // Translate all data-i18n elements
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (translations[lang][key] !== undefined) {
+      el.textContent = translations[lang][key];
+    }
   });
 
-  updatePlaceholders("fr");
+  updatePlaceholders(lang);
+
+  // Update active state on lang buttons — hide active, show others
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    if (btn.dataset.lang === lang) {
+      btn.classList.add("is-active");
+    } else {
+      btn.classList.remove("is-active");
+    }
+  });
+}
+
+// Attach click listeners to all lang buttons
+document.querySelectorAll(".lang-btn").forEach(btn => {
+  btn.addEventListener("click", () => switchLanguage(btn.dataset.lang));
+});
+
+// Init: mark FR as active on load
+switchLanguage("fr");
 </script>
 
 <script>
-  const form = document.getElementById("contact-form");
+  const form      = document.getElementById("contact-form");
   const submitBtn = document.getElementById("submit-btn");
-  const successMessage = document.getElementById("form-success");
-  const errorMessage = document.getElementById("form-error");
+  const successMsg = document.getElementById("form-success");
+  const errorMsg   = document.getElementById("form-error");
 
-  form.addEventListener("submit", async function (e) {
+  form.addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    successMessage.style.display = "none";
-    errorMessage.style.display = "none";
+    successMsg.style.display = "none";
+    errorMsg.style.display   = "none";
 
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = currentLang === "fr" ? "Envoi..." : "Sending...";
-    submitBtn.disabled = true;
+    const originalText   = submitBtn.textContent;
+    submitBtn.textContent = currentLang === "fr" ? "Envoi..." : currentLang === "en" ? "Sending..." : "جارٍ الإرسال...";
+    submitBtn.disabled    = true;
 
     try {
       const response = await fetch(form.action, {
         method: "POST",
         body: new FormData(form),
-        headers: {
-          "Accept": "application/json"
-        }
+        headers: { "Accept": "application/json" }
       });
 
       if (response.ok) {
         form.reset();
-        successMessage.style.display = "block";
+        successMsg.style.display = "block";
       } else {
-        errorMessage.style.display = "block";
+        errorMsg.style.display = "block";
       }
-    } catch (error) {
-      errorMessage.style.display = "block";
+    } catch (err) {
+      errorMsg.style.display = "block";
     }
 
     submitBtn.textContent = translations[currentLang].send_btn;
-    submitBtn.disabled = false;
+    submitBtn.disabled    = false;
   });
 </script>
 
