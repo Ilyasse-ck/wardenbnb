@@ -26,16 +26,29 @@
       <a href="#faq" class="nav__link" data-i18n="nav_faq">FAQ</a>
     </nav>
 
-    <div class="topbar__actions">
-      <a class="btn btn--pill btn--primary" href="#contact">
-        <span class="btn__icon" aria-hidden="true">✆</span>
-        <span data-i18n="contact_us">Contactez-nous</span>
-      </a>
+  <div class="topbar__actions">
+    <a class="btn btn--pill btn--primary" href="#contact">
+      <span class="btn__icon" aria-hidden="true">✆</span>
+      <span data-i18n="contact_us">Contactez-nous</span>
+    </a>
 
-      <button id="lang-toggle" class="btn btn--pill btn--ghost" type="button">
-        EN
+    <div class="lang-switcher" aria-label="Language selector">
+      <button class="lang-btn is-active" type="button" data-lang="fr" aria-label="Français">
+        <span class="lang-btn__flag">🇫🇷</span>
+        <span class="lang-btn__label">FR</span>
+      </button>
+
+      <button class="lang-btn" type="button" data-lang="en" aria-label="English">
+        <span class="lang-btn__flag">🇬🇧</span>
+        <span class="lang-btn__label">EN</span>
+      </button>
+
+      <button class="lang-btn" type="button" data-lang="ar" aria-label="العربية">
+        <span class="lang-btn__flag">🇲🇦</span>
+        <span class="lang-btn__label">AR</span>
       </button>
     </div>
+  </div>
   </div>
 </header>
 
