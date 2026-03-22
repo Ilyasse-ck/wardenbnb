@@ -540,3 +540,80 @@ html{ scroll-behavior: smooth; }
   font-weight: 800;
   letter-spacing: .2px;
 }
+
+.topbar__actions{
+  display: flex;
+  align-items: center;
+  justify-self: end;
+  gap: 10px;
+}
+
+.lang-switcher{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lang-btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  color: rgba(244,238,233,.86);
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+
+.lang-btn:hover{
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.2);
+}
+
+.lang-btn.is-active{
+  background: rgba(242,181,74,.14);
+  border-color: rgba(242,181,74,.45);
+  color: #fff;
+}
+
+.lang-btn__flag{
+  font-size: 15px;
+  line-height: 1;
+}
+
+.lang-btn__label{
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .4px;
+}
+
+html[lang="ar"] body{
+  direction: rtl;
+}
+
+html[lang="ar"] .topbar__inner,
+html[lang="ar"] .hero__inner,
+html[lang="ar"] .page__head,
+html[lang="ar"] .form,
+html[lang="ar"] .card,
+html[lang="ar"] .step{
+  text-align: right;
+}
+
+html[lang="ar"] .nav{
+  flex-direction: row-reverse;
+}
+
+html[lang="ar"] .topbar__actions{
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 900px){
+  .topbar__actions{
+    justify-self: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
