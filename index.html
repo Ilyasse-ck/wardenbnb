@@ -1,14 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wardenbnb</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
-<main id="accueil" class="hero">
 <header class="topbar">
   <div class="container topbar__inner">
     <a class="brand" href="#accueil" aria-label="Wardenbnb - Home">
@@ -149,24 +138,26 @@
         <div class="step">
           <span class="step__n">1</span>
           <div>
-            <h3 data-i18n="step1_title">Audit</h3>
-            <p data-i18n="step1_text">État du logement + potentiel + objectifs.</p>
+            <h3 data-i18n="step1_title">Analyse & stratégie</h3>
+            <p data-i18n="step1_text">Nous étudions votre bien et vos objectifs afin de définir une stratégie sur                   mesure.  <br><br>
+              Cela inclut l’estimation des revenus, le positionnement de l’annonce et l’optimisation des tarifs.</p>
           </div>
         </div>
 
         <div class="step">
           <span class="step__n">2</span>
           <div>
-            <h3 data-i18n="step2_title">Mise en ligne</h3>
-            <p data-i18n="step2_text">Annonce, prix, calendrier, checklists.</p>
+            <h3 data-i18n="step2_title">Mise en place & optimisation</h3>
+            <p data-i18n="step2_text">
+            Nous préparons votre logement pour la location : création ou amélioration de l’annonce, photos                         professionnelles et        mise en place des outils nécessaires pour maximiser la visibilité et les                   réservations.</p>
           </div>
         </div>
 
         <div class="step">
           <span class="step__n">3</span>
           <div>
-            <h3 data-i18n="step3_title">Exploitation</h3>
-            <p data-i18n="step3_text">Voyageurs, ménage, maintenance, reporting.</p>
+            <h3 data-i18n="step3_title">Gestion & performance</h3>
+            <p data-i18n="step3_text">Nous assurons la gestion quotidienne (communication voyageurs, suivi, optimisation continue) et veillons à maximiser vos revenus avec un reporting transparent.</p>
           </div>
         </div>
       </div>
@@ -184,24 +175,37 @@
       <div class="pricing">
         <article class="card card--pricing">
           <h3 class="card__title" data-i18n="pricing1_title">Gestion complète</h3>
-          <p class="price">15% <span data-i18n="pricing_per">/ revenus</span></p>
+          <p class="price">20% <span data-i18n="pricing_per">/ revenus générés</span></p>
           <ul class="list">
-            <li data-i18n="pricing1_li1">Optimisation annonce & prix</li>
-            <li data-i18n="pricing1_li2">Communication voyageurs</li>
-            <li data-i18n="pricing1_li3">Check-in/out</li>
-            <li data-i18n="pricing1_li4">Coordination ménage</li>
+            <li data-i18n="pricing1_li1">Optimisation des annonces et des tarifs</li>
+            <li data-i18n="pricing1_li2">Gestion de la communication avec les voyageurs</li>
+            <li data-i18n="pricing1_li3">Organisation des check-in / check-out</li>
+            <li data-i18n="pricing1_li4">Coordination du ménage et de la maintenance</li>
+            <li data-i18n="pricing1_li5">Gestion des fiches de police conformément à la réglementation</li>
+            <li data-i18n="pricing1_li6">Assistance et suivi des assurances liées à la location</li>
           </ul>
-          <a class="btn btn--primary btn--lg" href="#contact" data-i18n="request_audit">Demander un audit</a>
+          <a class="btn btn--primary btn--lg" href="#contact" data-i18n="contact_btn_2">Nous contacter</a>
         </article>
 
         <article class="card card--pricing">
-          <h3 class="card__title" data-i18n="pricing2_title">À la carte</h3>
-          <p class="price" data-i18n="pricing2_price">Sur devis</p>
+          <h3 class="card__title" data-i18n="pricing2_title">Offre Digitale & Optimisation</h3>
+          <p class="price">13% <span data-i18n="pricing_per">/ revenus générés</span></p>
           <ul class="list">
-            <li data-i18n="pricing2_li1">Ménage + linge</li>
-            <li data-i18n="pricing2_li2">Photos pro</li>
-            <li data-i18n="pricing2_li3">Maintenance</li>
-            <li data-i18n="pricing2_li4">Conseil & setup</li>
+            <li data-i18n="pricing2_li1">Photos professionnelles de haute qualité</li>
+            <li data-i18n="pricing2_li2">Optimisation complète de vos annonces</li>
+            <li data-i18n="pricing2_li3">Mise en place et gestion de la stratégie de prix (pricing dynamique)</li>
+            <li data-i18n="pricing2_li4">Communication avec les voyageurs (avant, pendant et après séjour)</li>
+          </ul>
+          <a class="btn btn--ghost btn--lg" href="#contact" data-i18n="contact_btn_2">Nous contacter</a>
+        </article>
+                <article class="card card--pricing">
+          <h3 class="card__title" data-i18n="pricing2_title">Optimisation des annonces (One Shot)</h3>
+          <p class="price">3500 <span data-i18n="pricing_per">MAD</span></p>
+          <ul class="list">
+            <li data-i18n="pricing2_li1">Photos professionnelles</li>
+            <li data-i18n="pricing2_li2">Rédaction et optimisation de l’annonce</li>
+            <li data-i18n="pricing2_li3">Amélioration de la visibilité sur les plateformes</li>
+            <li data-i18n="pricing2_li4">Conseil stratégique et accompagnement au lancement</li>
           </ul>
           <a class="btn btn--ghost btn--lg" href="#contact" data-i18n="contact_btn_2">Nous contacter</a>
         </article>
@@ -239,42 +243,79 @@
       <header class="page__head">
         <div class="pill"><span class="pill__dot">•</span> <span data-i18n="contact_label">Contact</span></div>
         <h2 class="page__title" data-i18n="contact_title">Parlons de votre logement</h2>
-        <p class="page__lead" data-i18n="contact_lead">Laissez vos infos, on vous répond rapidement.</p>
+        <p class="page__lead" data-i18n="contact_lead">Laissez vos informations, nous vous répondons rapidement avec une estimation personnalisée.</p>
       </header>
 
-      <form id="contact-form" class="form" action="https://formspree.io/f/mzdjqewj" method="POST">
-        <div class="form__row">
-          <label for="name" data-i18n="label_name">Nom</label>
-          <input id="name" type="text" name="name" placeholder="Votre nom" required />
-        </div>
+  <form id="contact-form" class="form" action="https://formspree.io/f/mzdjqewj" method="POST">
+    <div class="form__row">
+      <label for="full-name">Nom complet</label>
+      <input id="full-name" type="text" name="full_name" placeholder="Votre nom complet" required />
+    </div>
 
-        <div class="form__row">
-          <label for="phone" data-i18n="label_phone">Téléphone</label>
-          <input id="phone" type="tel" name="phone" placeholder="+212 ..." />
-        </div>
+    <div class="form__row">
+      <label for="phone">Téléphone</label>
+      <input id="phone" type="tel" name="phone" placeholder="+212 ..." required />
+    </div>
 
-        <div class="form__row">
-          <label for="email" data-i18n="label_email">Email</label>
-          <input id="email" type="email" name="email" placeholder="votre@email.com" required />
-        </div>
+    <div class="form__row">
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" placeholder="votre@email.com" required />
+    </div>
 
-        <div class="form__row">
-          <label for="message" data-i18n="label_message">Message</label>
-          <textarea id="message" name="message" rows="5" placeholder="Décrivez votre logement et vos objectifs..." required></textarea>
-        </div>
+    <div class="form__row">
+      <label for="property-type">Type de bien</label>
+      <select id="property-type" name="property_type" required>
+        <option value="">Sélectionnez un type de bien</option>
+        <option value="Appartement">Appartement</option>
+        <option value="Villa">Villa</option>
+        <option value="Studio">Studio</option>
+        <option value="Autre">Autre</option>
+      </select>
+    </div>
 
-        <button id="submit-btn" class="btn btn--primary btn--lg" type="submit" data-i18n="send_btn">
-          Envoyer
-        </button>
+   <div class="form__row">
+  <label>Services souhaités</label>
 
-        <p id="form-success" style="display:none; margin-top:12px; color: lightgreen;" data-i18n="form_success">
-          Message envoyé avec succès.
-        </p>
+  <div class="services-options">
+    <label class="service-option">
+      <input type="checkbox" name="services[]" value="Gestion complète (20 %)" />
+      <span class="service-option__content">
+        <span class="service-option__title">Gestion complète</span>
+        <span class="service-option__price">20 %</span>
+      </span>
+    </label>
 
-        <p id="form-error" style="display:none; margin-top:12px; color: #ff8a8a;" data-i18n="form_error">
-          Une erreur est survenue. Réessayez.
-        </p>
-      </form>
+    <label class="service-option">
+      <input type="checkbox" name="services[]" value="Offre digitale & optimisation (13 %)" />
+      <span class="service-option__content">
+        <span class="service-option__title">Offre digitale & optimisation</span>
+        <span class="service-option__price">13 %</span>
+      </span>
+    </label>
+
+    <label class="service-option">
+      <input type="checkbox" name="services[]" value="Optimisation annonce (3500 DH)" />
+      <span class="service-option__content">
+        <span class="service-option__title">Optimisation annonce</span>
+        <span class="service-option__price">3500 DH</span>
+      </span>
+    </label>
+  </div>
+</div>
+    </fieldset>
+
+    <button id="submit-btn" class="btn btn--primary btn--lg" type="submit">
+      Envoyer
+    </button>
+
+    <p id="form-success" style="display:none; margin-top:12px; color: lightgreen;">
+      Message envoyé avec succès.
+    </p>
+
+    <p id="form-error" style="display:none; margin-top:12px; color: #ff8a8a;">
+      Une erreur est survenue. Réessayez.
+    </p>
+  </form>
     </div>
   </section>
 </main>
@@ -551,10 +592,3 @@
     submitBtn.disabled = false;
   });
 </script>
-  </div>
-</section>
-</main>
-</main>
-
-</body>
-</html>

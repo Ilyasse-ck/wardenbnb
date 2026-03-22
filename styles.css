@@ -197,6 +197,7 @@ a{ color: inherit; text-decoration: none; }
 
 .hero__actions{
   margin-top: 28px;
+  margin-bottom: 28px;
   display: flex;
   gap: 14px;
   justify-content: center;
@@ -387,7 +388,95 @@ html{ scroll-behavior: smooth; }
   justify-self: end;
   gap: 10px;
 }
+.form select{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+  color: rgba(255,255,255,.9);
+  outline: none;
+}
 
+.form select:focus{
+  border-color: rgba(185,167,150,.45);
+}
+
+.form fieldset{
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.form legend{
+  padding: 0 8px;
+  color: rgba(255,255,255,.72);
+  font-size: 14px;
+}
+
+.form fieldset label{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  color: rgba(255,255,255,.86);
+}
+.services-options{
+  display: grid;
+  gap: 12px;
+}
+
+.service-option{
+  display: block;
+  cursor: pointer;
+}
+
+.service-option input{
+  display: none;
+}
+
+.service-option__content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  transition: border-color .2s ease, background .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+
+.service-option__title{
+  color: rgba(255,255,255,.9);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.service-option__price{
+  color: var(--accent);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.service-option:hover .service-option__content{
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.18);
+}
+
+.service-option input:checked + .service-option__content{
+  background: rgba(242,181,74,.12);
+  border-color: rgba(242,181,74,.55);
+  box-shadow: 0 10px 30px rgba(242,181,74,.12);
+}
+
+.service-option input:checked + .service-option__content .service-option__title{
+  color: #fff;
+}
+
+.service-option input:checked + .service-option__content .service-option__price{
+  color: #ffd27a;
+}
 @media (max-width: 900px){
   .topbar__actions{
     justify-self: center;
